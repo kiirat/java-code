@@ -1,0 +1,52 @@
+ //get maze path with jump
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner scn=new Scanner(System.in);
+		int nr=scn.nextInt();
+		int nc=scn.nextInt();
+		ArrayList<String>paths=getmazepaths(1,1,nr,nc);//function calling
+		System.out.println(paths);
+	}
+	public static ArrayList<String> getmazepaths(int sr,int sc,int dr,int dc){
+	    //base case :
+	 if(sr==dr && sc==dc){
+	     ArrayList<String>bres=new ArrayList<>();
+	     bres.add(" ");
+	     return bres;
+	 }   
+	    
+	    ArrayList<String> paths=new ArrayList<>();//add krvane k liye
+	    
+	    
+	   //horizontal move
+	   for(int m=1;m<=dc-sc;m++){
+	       ArrayList<String>hpaths=getmazepaths(sr,sc+m,dr,dc);
+	       //printing k liye
+	       for(String hpath:hpaths){
+	           paths.add("h"+m+hpath);
+	           
+	       }
+	   }
+	    //vertical move 
+	   for(int m=1;m<=dr-sr;m++){
+	       ArrayList<String>vpaths=getmazepaths(sr+m,sc,dr,dc);
+	       //printing k liye
+	       for(String vpath:vpaths){
+	           paths.add("v"+m+vpath);
+	        
+}
+}
+ //daigonal move
+	   for(int m=1;m<=dc-sc && m<=dr-sr;m++){
+	       ArrayList<String>dpaths=getmazepaths(sr+m,sc+m,dr,dc);
+	       //printing k liye
+	       for(String dpath:dpaths){
+	           paths.add("d"+m+dpath);
+	       }
+	   }
+	   return paths;
+	}
+}
